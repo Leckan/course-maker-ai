@@ -41,7 +41,7 @@ function SideBar() {
     return (
         <div className='fixed h-full md:w-64 p-5 shadow-md'>
             <div className='flex font-bold text-xl items-center' >
-                <Image src={'/coursemakerlogo.svg'} alt='logo' width={50} height={50} />
+                <Image src={'/coursemakerlogo.svg'} alt='logo' width={40} height={40} />
                 <h2 className='ml-2'>Course Maker AI</h2>
             </div>
 
