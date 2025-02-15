@@ -1,11 +1,10 @@
-import React, { PureComponent } from 'react'
+import { UserButton } from '@clerk/nextjs'
+import React from 'react'
 
-export class page extends PureComponent {
-  render() {
-    return (
-      <div>page</div>
-    )
-  }
+function page() {
+  return (
+    <div><UserButton/></div>
+  )
 }
 
 export default page
