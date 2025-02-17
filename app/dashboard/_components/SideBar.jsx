@@ -41,10 +41,11 @@ function SideBar() {
 
     return (
         <div className='fixed h-full md:w-64 p-5 shadow-md'>
+            <Link href={"/dashboard"} >
             <div className='flex font-bold text-xl items-center' >
-                <Image src={'/coursemakerlogo.svg'} alt='logo' width={40} height={40} />
+                <Image src={'/online-education.png'} alt='logo' width={40} height={40} />
                 <h2 className='ml-2'>Course Maker AI</h2>
-            </div>
+            </div></Link>
 
             <hr className='my-5' />
             <ul>
