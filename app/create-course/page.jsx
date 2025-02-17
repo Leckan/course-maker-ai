@@ -3,17 +3,19 @@ import { Button } from '@/components/ui/button'
 import React, { useState } from 'react'
 import { HiClipboardDocumentCheck, HiLightBulb, HiMiniSquares2X2 } from 'react-icons/hi2'
 import SelectCategory from './_components/SelectCategory'
+import TopicDescription from './_components/TopicDescription'
 
 function CreateCourse() {
-    const StepperOptions = [{
-        id: 1,
+    const StepperOptions = [
+        {
+            id: 1,
+            name: 'Category',
+            icon: <HiLightBulb />
+        },
+        {
+        id: 2,
         name: 'Topic & Desc',
         icon: <HiMiniSquares2X2 />
-    },
-    {
-        id: 2,
-        name: 'Category',
-        icon: <HiLightBulb />
     },
     {
         id: 3,
@@ -48,7 +50,8 @@ function CreateCourse() {
             </div>
             <div className='px-10 md:px-20 lg:px-44 mt-10'>
                 {/* Component*/}
-                {activeIndex==0?<SelectCategory/>:null}
+                {activeIndex==0?<SelectCategory/>:
+            activeIndex==1?<TopicDescription/>:null}
 
                 {/* Next Previous Button*/}
 
