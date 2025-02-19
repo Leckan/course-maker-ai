@@ -8,11 +8,18 @@ import SelectOption from './_components/SelectOption'
 import { UserInputContext } from '../_context/UserInputContext'
 import { GenerateCourseLayout_AI } from '@/configs/AiModel'
 import LoadingDialog from './_components/LoadingDialog'
+import { db } from '@/configs/db'
+import { CourseList } from '@/configs/schema'
+import uuid4 from 'uuid4'
+import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 function CreateCourse() {
     const { userCourseInput, setUserCourseInput } = useContext(UserInputContext);
     const [loading, setLoading] = useState(false);
-    const [activeIndex, setActiveIndex] = useState(0)
+    const [activeIndex, setActiveIndex] = useState(0);
+    const {user} = useUser();
+    const router = useRouter();
     /*
     * Used to check next button enable or disable status
 
@@ -70,11 +77,29 @@ function CreateCourse() {
         console.log(FINAL_PROMPT);
 
         const result = await GenerateCourseLayout_AI.sendMessage(FINAL_PROMPT);
-        console.log(result.response?.text());
         console.log(JSON.parse(result.response?.text()));
         setLoading(false);
-
+        SaveCourseLayoutInDb(JSON.parse(result.response?.text()));
     }
+
+    const SaveCourseLayoutInDb = async (courseLayout) => {
+        setLoading(true);
+        var uid = uuid4();
+        const result = await db.insert(CourseList).values({
+        courseId:uid,
+        name:userCourseInput?.topic,
+        level:userCourseInput?.level,
+        category:userCourseInput?.category,
+        courseOutput:courseLayout,
+        createdBy:user?.primaryEmailAddress?.emailAddress,
+        userName:user?.fullName,
+        userProfileImage:user?.imageUrl
+        })
+        console.log("finish");
+        setLoading(false);
+        router.replace('/create-course/'+uid);
+    }
+
     return (
         <div>
 
@@ -112,7 +137,7 @@ function CreateCourse() {
                     {activeIndex == 2 && <Button disabled={checkStatus()} onClick={() => GenerateCourseLayout()}>Generate Course Layout</Button>}
                 </div>
             </div>
-            <LoadingDialog loading={loading}/>
+            <LoadingDialog loading={loading} />
         </div>
     )
 }
