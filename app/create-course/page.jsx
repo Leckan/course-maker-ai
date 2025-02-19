@@ -104,7 +104,7 @@ function CreateCourse() {
         <div>
 
             {/*Stepper*/}
-            <div className='flex flex-col justify-center items-center mt-10'>
+            <div className='flex flex-col justify-center items-center mt-10 '>
                 <h2 className='text-4xl text-primary font-medium'>Create Course</h2>
                 <div className='flex mt-10'>
                     {StepperOptions.map((item, index) => (
